@@ -58,8 +58,7 @@ class ExtendedImage extends StatefulWidget {
     this.layoutInsets = EdgeInsets.zero,
   })  : assert(constraints == null || constraints.debugAssertIsValid()),
         constraints = (width != null || height != null)
-            ? constraints?.tighten(width: width, height: height) ??
-                BoxConstraints.tightFor(width: width, height: height)
+            ? constraints?.tighten(width: width, height: height) ?? BoxConstraints.tightFor(width: width, height: height)
             : constraints,
         super(key: key);
 
@@ -263,8 +262,7 @@ class ExtendedImage extends StatefulWidget {
           imageCacheName: imageCacheName,
         ),
         constraints = (width != null || height != null)
-            ? constraints?.tighten(width: width, height: height) ??
-                BoxConstraints.tightFor(width: width, height: height)
+            ? constraints?.tighten(width: width, height: height) ?? BoxConstraints.tightFor(width: width, height: height)
             : constraints,
         handleLoadingProgress = false,
         super(key: key);
@@ -357,8 +355,7 @@ class ExtendedImage extends StatefulWidget {
           imageCacheName: imageCacheName,
         ),
         constraints = (width != null || height != null)
-            ? constraints?.tighten(width: width, height: height) ??
-                BoxConstraints.tightFor(width: width, height: height)
+            ? constraints?.tighten(width: width, height: height) ?? BoxConstraints.tightFor(width: width, height: height)
             : constraints,
         handleLoadingProgress = false,
         super(key: key);
@@ -441,8 +438,7 @@ class ExtendedImage extends StatefulWidget {
           imageCacheName: imageCacheName,
         ),
         constraints = (width != null || height != null)
-            ? constraints?.tighten(width: width, height: height) ??
-                BoxConstraints.tightFor(width: width, height: height)
+            ? constraints?.tighten(width: width, height: height) ?? BoxConstraints.tightFor(width: width, height: height)
             : constraints,
         handleLoadingProgress = false,
         super(key: key);
@@ -530,8 +526,7 @@ class ExtendedImage extends StatefulWidget {
         ),
         assert(constraints == null || constraints.debugAssertIsValid()),
         constraints = (width != null || height != null)
-            ? constraints?.tighten(width: width, height: height) ??
-                BoxConstraints.tightFor(width: width, height: height)
+            ? constraints?.tighten(width: width, height: height) ?? BoxConstraints.tightFor(width: width, height: height)
             : constraints,
         assert(cacheWidth == null || cacheWidth > 0),
         assert(cacheHeight == null || cacheHeight > 0),
@@ -814,27 +809,17 @@ class ExtendedImage extends StatefulWidget {
     properties.add(DoubleProperty('width', width, defaultValue: null));
     properties.add(DoubleProperty('height', height, defaultValue: null));
     properties.add(ColorProperty('color', color, defaultValue: null));
-    properties.add(DiagnosticsProperty<Animation<double>?>('opacity', opacity,
-        defaultValue: null));
-    properties.add(EnumProperty<BlendMode>('colorBlendMode', colorBlendMode,
-        defaultValue: null));
+    properties.add(DiagnosticsProperty<Animation<double>?>('opacity', opacity, defaultValue: null));
+    properties.add(EnumProperty<BlendMode>('colorBlendMode', colorBlendMode, defaultValue: null));
     properties.add(EnumProperty<BoxFit>('fit', fit, defaultValue: null));
-    properties.add(DiagnosticsProperty<AlignmentGeometry>(
-        'alignment', alignment,
-        defaultValue: null));
-    properties.add(EnumProperty<ImageRepeat>('repeat', repeat,
-        defaultValue: ImageRepeat.noRepeat));
-    properties.add(DiagnosticsProperty<Rect>('centerSlice', centerSlice,
-        defaultValue: null));
-    properties.add(FlagProperty('matchTextDirection',
-        value: matchTextDirection, ifTrue: 'match text direction'));
-    properties.add(
-        StringProperty('semanticLabel', semanticLabel, defaultValue: null));
-    properties.add(DiagnosticsProperty<bool>(
-        'this.excludeFromSemantics', excludeFromSemantics));
+    properties.add(DiagnosticsProperty<AlignmentGeometry>('alignment', alignment, defaultValue: null));
+    properties.add(EnumProperty<ImageRepeat>('repeat', repeat, defaultValue: ImageRepeat.noRepeat));
+    properties.add(DiagnosticsProperty<Rect>('centerSlice', centerSlice, defaultValue: null));
+    properties.add(FlagProperty('matchTextDirection', value: matchTextDirection, ifTrue: 'match text direction'));
+    properties.add(StringProperty('semanticLabel', semanticLabel, defaultValue: null));
+    properties.add(DiagnosticsProperty<bool>('this.excludeFromSemantics', excludeFromSemantics));
     properties.add(EnumProperty<FilterQuality>('filterQuality', filterQuality));
-    properties
-        .add(DiagnosticsProperty<EdgeInsets>('layoutInsets', layoutInsets));
+    properties.add(DiagnosticsProperty<EdgeInsets>('layoutInsets', layoutInsets));
   }
 
   /// default state widget builder
@@ -856,8 +841,7 @@ class ExtendedImage extends StatefulWidget {
                 )
               : CircularProgressIndicator(
                   strokeWidth: 2.0,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).primaryColor),
+                  valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
                 ),
         );
 
@@ -877,8 +861,7 @@ class ExtendedImage extends StatefulWidget {
   };
 }
 
-class _ExtendedImageState extends State<ExtendedImage>
-    with ExtendedImageState, WidgetsBindingObserver {
+class _ExtendedImageState extends State<ExtendedImage> with ExtendedImageState, WidgetsBindingObserver {
   late LoadState _loadState;
   ImageStream? _imageStream;
   ImageInfo? _imageInfo;
@@ -973,7 +956,7 @@ class _ExtendedImageState extends State<ExtendedImage>
           if (widget.borderRadius != null) {
             current = ClipRRect(
               child: current,
-              borderRadius: widget.borderRadius,
+              borderRadius: widget.borderRadius ?? BorderRadius.zero,
               clipBehavior: widget.clipBehavior,
             );
           }
@@ -983,26 +966,19 @@ class _ExtendedImageState extends State<ExtendedImage>
 
     if (widget.border != null) {
       current = CustomPaint(
-        foregroundPainter: ExtendedImageBorderPainter(
-            borderRadius: widget.borderRadius,
-            border: widget.border,
-            shape: widget.shape ?? BoxShape.rectangle),
+        foregroundPainter:
+            ExtendedImageBorderPainter(borderRadius: widget.borderRadius, border: widget.border, shape: widget.shape ?? BoxShape.rectangle),
         child: current,
-        size: widget.width != null && widget.height != null
-            ? Size(widget.width!, widget.height!)
-            : Size.zero,
+        size: widget.width != null && widget.height != null ? Size(widget.width!, widget.height!) : Size.zero,
       );
     }
 
     if (widget.constraints != null) {
-      current =
-          ConstrainedBox(constraints: widget.constraints!, child: current);
+      current = ConstrainedBox(constraints: widget.constraints!, child: current);
     }
 
     // add for loading/failed/ unGesture image
-    if (_slidePageState != null &&
-        !(_loadState == LoadState.completed &&
-            widget.mode == ExtendedImageMode.gesture)) {
+    if (_slidePageState != null && !(_loadState == LoadState.completed && widget.mode == ExtendedImageMode.gesture)) {
       current = ExtendedImageSlidePageHandler(
         child: current,
         extendedImageSlidePageState: _slidePageState,
@@ -1026,11 +1002,9 @@ class _ExtendedImageState extends State<ExtendedImage>
     super.debugFillProperties(description);
     description.add(DiagnosticsProperty<ImageStream>('stream', _imageStream));
     description.add(DiagnosticsProperty<ImageInfo>('pixels', _imageInfo));
-    description.add(DiagnosticsProperty<ImageChunkEvent>(
-        'loadingProgress', _loadingProgress));
+    description.add(DiagnosticsProperty<ImageChunkEvent>('loadingProgress', _loadingProgress));
     description.add(DiagnosticsProperty<int>('frameNumber', _frameNumber));
-    description.add(DiagnosticsProperty<bool>(
-        'wasSynchronouslyLoaded', _wasSynchronouslyLoaded));
+    description.add(DiagnosticsProperty<bool>('wasSynchronouslyLoaded', _wasSynchronouslyLoaded));
   }
 
   @override
@@ -1048,8 +1022,7 @@ class _ExtendedImageState extends State<ExtendedImage>
 
     _slidePageState = null;
     if (widget.enableSlideOutPage) {
-      _slidePageState =
-          context.findAncestorStateOfType<ExtendedImageSlidePageState>();
+      _slidePageState = context.findAncestorStateOfType<ExtendedImageSlidePageState>();
     }
 
     if (TickerMode.of(context)) {
@@ -1064,8 +1037,7 @@ class _ExtendedImageState extends State<ExtendedImage>
   @override
   void didUpdateWidget(ExtendedImage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (_isListeningToStream &&
-        widget.handleLoadingProgress != oldWidget.handleLoadingProgress) {
+    if (_isListeningToStream && widget.handleLoadingProgress != oldWidget.handleLoadingProgress) {
       final ImageStreamListener oldListener = _getListener();
       _imageStream!.addListener(_getListener(recreateListener: true));
       _imageStream!.removeListener(oldListener);
@@ -1076,8 +1048,7 @@ class _ExtendedImageState extends State<ExtendedImage>
     if (widget.enableSlideOutPage != oldWidget.enableSlideOutPage) {
       _slidePageState = null;
       if (widget.enableSlideOutPage) {
-        _slidePageState =
-            context.findAncestorStateOfType<ExtendedImageSlidePageState>();
+        _slidePageState = context.findAncestorStateOfType<ExtendedImageSlidePageState>();
       }
     }
   }
@@ -1098,9 +1069,7 @@ class _ExtendedImageState extends State<ExtendedImage>
       //   (widget.image as ExtendedImageProvider<dynamic>)
       //       .evict(includeLive: false);
       // }
-      widget.image
-          .obtainCacheStatus(configuration: ImageConfiguration.empty)
-          .then((ImageCacheStatus? value) {
+      widget.image.obtainCacheStatus(configuration: ImageConfiguration.empty).then((ImageCacheStatus? value) {
         if (value?.keepAlive ?? false) {
           widget.image.evict();
         }
@@ -1241,8 +1210,7 @@ class _ExtendedImageState extends State<ExtendedImage>
 
   void _replaceImage({required ImageInfo? info}) {
     final ImageInfo? oldImageInfo = _imageInfo;
-    SchedulerBinding.instance
-        .addPostFrameCallback((_) => oldImageInfo?.dispose());
+    SchedulerBinding.instance.addPostFrameCallback((_) => oldImageInfo?.dispose());
     _imageInfo = info;
   }
 
@@ -1257,10 +1225,7 @@ class _ExtendedImageState extends State<ExtendedImage>
     );
 
     final ImageStream newStream = provider.resolve(
-        createLocalImageConfiguration(context,
-            size: widget.width != null && widget.height != null
-                ? Size(widget.width!, widget.height!)
-                : null));
+        createLocalImageConfiguration(context, size: widget.width != null && widget.height != null ? Size(widget.width!, widget.height!) : null));
 
     if (_imageInfo != null && !rebuild && _imageStream?.key == newStream.key) {
       setState(() {
@@ -1282,9 +1247,7 @@ class _ExtendedImageState extends State<ExtendedImage>
     if (!_isListeningToStream) {
       return;
     }
-    if (keepStreamAlive &&
-        _completerHandle == null &&
-        _imageStream?.completer != null) {
+    if (keepStreamAlive && _completerHandle == null && _imageStream?.completer != null) {
       _completerHandle = _imageStream!.completer!.keepAlive();
     }
     _imageStream!.removeListener(_getListener());
@@ -1292,8 +1255,7 @@ class _ExtendedImageState extends State<ExtendedImage>
   }
 
   void _updateInvertColors() {
-    _invertColors = MediaQuery.maybeOf(context)?.invertColors ??
-        SemanticsBinding.instance.accessibilityFeatures.invertColors;
+    _invertColors = MediaQuery.maybeOf(context)?.invertColors ?? SemanticsBinding.instance.accessibilityFeatures.invertColors;
   }
 
   void _updateSourceStream(ImageStream newStream, {bool rebuild = false}) {

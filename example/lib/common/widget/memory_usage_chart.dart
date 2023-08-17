@@ -40,7 +40,7 @@ class _MemoryUsageChartState extends State<MemoryUsageChart> {
       height: 150,
       child: LineChart(
         getData(),
-        swapAnimationDuration: const Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 250),
       ),
     );
   }
@@ -56,7 +56,7 @@ class _MemoryUsageChartState extends State<MemoryUsageChart> {
         ),
         handleBuiltInTouches: true,
       ),
-      gridData: FlGridData(
+      gridData: const FlGridData(
         show: false,
       ),
       titlesData: FlTitlesData(
@@ -65,8 +65,7 @@ class _MemoryUsageChartState extends State<MemoryUsageChart> {
           showTitles: true,
           getTitlesWidget: (double value, _) {
             final int millisecondsSinceEpoch = value.toInt();
-            final DateTime dateTime =
-                DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
+            final DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
 
             return Padding(
               padding: const EdgeInsets.all(0.0),
@@ -120,10 +119,7 @@ class _MemoryUsageChartState extends State<MemoryUsageChart> {
           ),
         ),
       ),
-      minX: now
-          .subtract(const Duration(minutes: 1))
-          .millisecondsSinceEpoch
-          .toDouble(),
+      minX: now.subtract(const Duration(minutes: 1)).millisecondsSinceEpoch.toDouble(),
       maxX: now.millisecondsSinceEpoch.toDouble(),
       minY: 0,
       maxY: max(300, maxY ?? 0),
@@ -138,18 +134,13 @@ class _MemoryUsageChartState extends State<MemoryUsageChart> {
     final List<FlSpot> data2 = <FlSpot>[];
     final List<FlSpot> data3 = <FlSpot>[];
     for (final MyMemoryUsage item in VMHelper().mainHistoryMemoryInfo) {
-      data1.add(FlSpot(item.dataTime.millisecondsSinceEpoch.toDouble(),
-          item.toDouble(item.heapUsage)));
-      data2.add(FlSpot(item.dataTime.millisecondsSinceEpoch.toDouble(),
-          item.toDouble(item.heapCapacity)));
-      data3.add(FlSpot(item.dataTime.millisecondsSinceEpoch.toDouble(),
-          item.toDouble(item.externalUsage)));
+      data1.add(FlSpot(item.dataTime.millisecondsSinceEpoch.toDouble(), item.toDouble(item.heapUsage)));
+      data2.add(FlSpot(item.dataTime.millisecondsSinceEpoch.toDouble(), item.toDouble(item.heapCapacity)));
+      data3.add(FlSpot(item.dataTime.millisecondsSinceEpoch.toDouble(), item.toDouble(item.externalUsage)));
 
-      final double minValue =
-          min(min(item.heapUsage, item.heapCapacity), item.externalUsage);
+      final double minValue = min(min(item.heapUsage, item.heapCapacity), item.externalUsage);
 
-      final double maxValue =
-          max(max(item.heapUsage, item.heapCapacity), item.externalUsage);
+      final double maxValue = max(max(item.heapUsage, item.heapCapacity), item.externalUsage);
 
       minY = min(maxY ?? minValue.toDouble(), minValue.toDouble());
       maxY = max(maxY ?? maxValue.toDouble(), maxValue.toDouble());
@@ -169,7 +160,7 @@ class _MemoryUsageChartState extends State<MemoryUsageChart> {
       color: color,
       barWidth: 2,
       isStrokeCapRound: true,
-      dotData: FlDotData(
+      dotData: const FlDotData(
         show: false,
       ),
       belowBarData: BarAreaData(
